@@ -16,6 +16,13 @@ DATA_FILE = 'expenses.json'
 def home():
     return render_template("index.html")
 
+@app.route("/test-static")
+def test_static():
+    return """
+    <link rel="stylesheet" href="/static/css/style.css">
+    <h1>If this is styled, static works</h1>
+    """
+
 
 def load_expenses():
     """Load expenses from JSON file"""
