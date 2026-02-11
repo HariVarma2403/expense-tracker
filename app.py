@@ -29,6 +29,12 @@ def save_expenses(expenses):
     with open(DATA_FILE, 'w') as f:
         json.dump(expenses, f, indent=2)
 
+
+@app.route("/debug")
+def debug():
+    return "Flask is running"
+
+
 @app.route('/')
 def index():
     """Render main page"""
