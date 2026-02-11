@@ -8,9 +8,14 @@ app = Flask(
     static_folder="static"
 )
 
+
 # Path to JSON data file
 DATA_FILE = 'expenses.json'
 
+
+if not os.path.exists(DATA_FILE):
+    with open(DATA_FILE, "w") as f:
+        json.dump([], f)
 
 @app.route("/")
 def home():
@@ -25,17 +30,12 @@ def test_static():
 
 
 def load_expenses():
-    """Load expenses from JSON file"""
-    if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, 'r') as f:
-            return json.load(f)
-    return []
+    with open(DATA_FILE, "r") as f:
+        return json.load(f)
 
-def save_expenses(expenses):
-    """Save expenses to JSON file"""
-    with open(DATA_FILE, 'w') as f:
-        json.dump(expenses, f, indent=2)
-
+def save_expenses(data):
+    with open(DATA_FILE, "w") as f:
+        json.dump(data, f, indent=2)
 
 @app.route("/debug")
 def debug():
@@ -47,17 +47,19 @@ def index():
     """Render main page"""
     return render_template('index.html')
 
-@app.route('/api/expenses', methods=['GET'])
-def get_expenses():
-    """Get all expenses"""
-    expenses = load_expenses()
-    return jsonify(expenses)
+@app.route("/api/expenses", methods=["GET", "POST"])
+def expenses():
+    if request.method == "GET":
+        return jsonify(load_expenses())
 
-@app.route('/api/expenses', methods=['POST'])
-def add_expense():
-    """Add a new expense"""
     data = request.json
     expenses = load_expenses()
+
+    expenses.append(data)
+    save_expenses(expenses)
+
+    return jsonify({"success": True})
+
     
     # Create new expense with auto-generated ID
     new_expense = {
