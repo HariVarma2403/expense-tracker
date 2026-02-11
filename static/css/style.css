@@ -252,40 +252,16 @@ body.dark {
     color: #e5e7eb;
 }
 
-body.dark .container {
-    background: transparent;
-}
-
+body.dark .card,
 body.dark .stat-card,
-body.dark .form-container,
-body.dark .expenses-container,
-body.dark .category-breakdown {
-    background: #1e293b;
+body.dark .form-container {
+    background: #020617;
     color: #e5e7eb;
 }
 
 body.dark input,
 body.dark select {
-    background: #0f172a;
-    color: #e5e7eb;
-    border-color: #334155;
-}
-
-body.dark .expense-item {
     background: #020617;
-}
-
-body.dark .dark-toggle {
-    color: #facc15;
-}
-
-/* Toggle button */
-.dark-toggle {
-    margin-top: 1rem;
-    background: none;
-    border: none;
-    font-size: 0.95rem;
-    cursor: pointer;
-    font-weight: 600;
-    color: #6b7280;
+    color: #e5e7eb;
+    border: 1px solid #334155;
 }
