@@ -1,12 +1,21 @@
 from flask import Flask, render_template, request, jsonify
-import json
-import os
+import json, os
 from datetime import datetime
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    template_folder="templates",
+    static_folder="static"
+)
 
 # Path to JSON data file
 DATA_FILE = 'expenses.json'
+
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
 
 def load_expenses():
     """Load expenses from JSON file"""
